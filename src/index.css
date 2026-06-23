@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
+
+  --color-neuro-50: #f0f9ff;
+  --color-neuro-100: #e0f2fe;
+  --color-neuro-200: #bae6fd;
+  --color-neuro-300: #7dd3fc;
+  --color-neuro-400: #38bdf8;
+  --color-neuro-500: #0ea5e9;
+  --color-neuro-600: #0284c7;
+  --color-neuro-700: #0369a1;
+  --color-neuro-800: #075985;
+  --color-neuro-900: #0c4a6e;
+
+  --color-pharma-50: #fdf4ff;
+  --color-pharma-100: #fae8ff;
+  --color-pharma-200: #f5d0fe;
+  --color-pharma-300: #f0abfc;
+  --color-pharma-400: #e879f9;
+  --color-pharma-500: #d946ef;
+  --color-pharma-600: #c026d3;
+  --color-pharma-700: #a21caf;
+  --color-pharma-800: #86198f;
+  --color-pharma-900: #701a75;
+
+  --color-gene-50: #ecfdf5;
+  --color-gene-100: #d1fae5;
+  --color-gene-200: #a7f3d0;
+  --color-gene-300: #6ee7b7;
+  --color-gene-400: #34d399;
+  --color-gene-500: #10b981;
+  --color-gene-600: #059669;
+  --color-gene-700: #047857;
+  --color-gene-800: #065f46;
+  --color-gene-900: #064e3b;
+
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+body {
+  margin: 0;
+  background: #0f172a;
+  color: #e2e8f0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}

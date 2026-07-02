@@ -27,19 +27,24 @@ export function DisorderCard({ disorder }: { disorder: Disorder }) {
   return (
     <Link
       to={`/disorder/${disorder.id}`}
-      className="group relative flex flex-col rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1"
+      className="group relative flex flex-col rounded-2xl p-5 cursor-pointer"
       style={{
         background: 'rgba(255,255,255,0.04)',
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
         border: `1px solid ${theme.border}`,
-        boxShadow: `0 0 0 0 ${theme.glow}`,
+        boxShadow: 'none',
+        transition: `transform var(--duration-base) var(--ease-out-expo), box-shadow var(--duration-base) var(--ease-out-expo)`,
       }}
       onMouseEnter={e => {
-        (e.currentTarget as HTMLElement).style.boxShadow = `0 8px 32px ${theme.glow}, 0 0 0 1px ${theme.border}`;
+        const el = e.currentTarget as HTMLElement;
+        el.style.transform = 'translateY(-4px)';
+        el.style.boxShadow = `0 12px 40px ${theme.glow}, 0 0 0 1px ${theme.border}`;
       }}
       onMouseLeave={e => {
-        (e.currentTarget as HTMLElement).style.boxShadow = `0 0 0 0 ${theme.glow}`;
+        const el = e.currentTarget as HTMLElement;
+        el.style.transform = 'translateY(0)';
+        el.style.boxShadow = 'none';
       }}
     >
       {/* Subtle gradient top edge */}

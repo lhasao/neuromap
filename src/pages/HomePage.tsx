@@ -66,8 +66,11 @@ export function HomePage() {
               Open Research · Every Claim Cited
             </div>
 
-            {/* Headline */}
-            <h1 className="text-5xl sm:text-6xl font-bold tracking-tight text-white mb-5 leading-[1.1]">
+            {/* Headline — Crimson Pro display font per skill typography recommendation */}
+            <h1
+              className="text-5xl sm:text-6xl font-semibold text-white mb-5 leading-[1.08]"
+              style={{ fontFamily: 'var(--font-display)', letterSpacing: '-0.03em' }}
+            >
               Explore Mental Health
               <br />
               <span
@@ -94,7 +97,10 @@ export function HomePage() {
                 return (
                   <div
                     key={f.label}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl backdrop-blur-md transition-all duration-300 hover:scale-105"
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl backdrop-blur-md"
+                    style={{ transition: `transform var(--duration-base) var(--ease-out-expo), box-shadow var(--duration-base) var(--ease-out-expo)` }}
+                    onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.04)')}
+                    onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
                     style={{
                       background: f.glow,
                       border: `1px solid ${f.border}`,

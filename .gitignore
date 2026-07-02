@@ -38,3 +38,18 @@ desktop.ini
 # Test artifacts
 verify-*.mjs
 /tmp/
+
+# Build cache
+.vite/
+*.tsbuildinfo
+
+# Sensitive env variants (belt-and-suspenders)
+.env.*
+!.env.example
+
+# Claude Code session data
+.claude/
+
+# Windows shortcuts / zone identifiers
+*.lnk
+*:Zone.Identifier

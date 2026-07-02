@@ -1,9 +1,10 @@
 import { depression } from './depression';
 import { anxiety } from './anxiety';
 import { schizophrenia } from './schizophrenia';
+import { adhd } from './adhd';
 import type { Disorder } from '../types';
 
-export const disorders: Disorder[] = [depression, anxiety, schizophrenia];
+export const disorders: Disorder[] = [depression, anxiety, schizophrenia, adhd];
 
 export function getDisorderById(id: string): Disorder | undefined {
   return disorders.find(d => d.id === id);

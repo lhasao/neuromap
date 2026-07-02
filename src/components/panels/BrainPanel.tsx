@@ -35,8 +35,8 @@ export function BrainPanel({ disorder, highlightedRegion, onHighlightRegion, onC
         onRegionClick={id => onHighlightRegion(highlightedRegion === id ? null : id)}
       />
 
-      {/* Region details */}
-      <div ref={detailRef} className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      {/* Region cards */}
+      <div ref={detailRef} className="grid grid-cols-1 lg:grid-cols-2 gap-3">
         {disorder.brainRegions.map(region => {
           const isActive = highlightedRegion === region.id;
           const drugs = relatedDrugs(region.relatedNeurotransmitters);
@@ -46,37 +46,57 @@ export function BrainPanel({ disorder, highlightedRegion, onHighlightRegion, onC
               key={region.id}
               data-region={region.id}
               onClick={() => onHighlightRegion(isActive ? null : region.id)}
-              className={`rounded-xl p-4 sm:p-5 border cursor-pointer transition-all duration-200 ${
-                isActive
-                  ? 'bg-slate-800 border-neuro-500/50 shadow-lg shadow-neuro-900/20 ring-1 ring-neuro-500/20'
-                  : 'bg-slate-800/30 border-slate-700/50 hover:bg-slate-800/60 hover:border-slate-600'
-              }`}
+              className="rounded-2xl p-4 sm:p-5 cursor-pointer transition-all duration-250 group"
+              style={{
+                background: isActive
+                  ? `rgba(${hexToRgb(region.color)}, 0.08)`
+                  : 'rgba(255,255,255,0.03)',
+                border: isActive
+                  ? `1px solid rgba(${hexToRgb(region.color)}, 0.35)`
+                  : '1px solid rgba(255,255,255,0.06)',
+                boxShadow: isActive
+                  ? `0 0 24px rgba(${hexToRgb(region.color)}, 0.12), inset 0 0 0 1px rgba(${hexToRgb(region.color)}, 0.08)`
+                  : 'none',
+              }}
             >
               <div className="flex items-start gap-3">
-                <div
-                  className="w-3 h-3 rounded-full mt-1.5 shrink-0 ring-2 ring-offset-2 ring-offset-slate-900"
-                  style={{ backgroundColor: region.color, boxShadow: `0 0 0 2px ${region.color}40` }}
-                />
+                {/* Color dot with glow */}
+                <div className="mt-1.5 shrink-0 relative">
+                  <div
+                    className="w-2.5 h-2.5 rounded-full"
+                    style={{ backgroundColor: region.color, boxShadow: `0 0 8px ${region.color}` }}
+                  />
+                </div>
+
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-sm font-semibold text-white">{region.name}</h3>
-                  <p className="text-xs text-slate-500 mt-0.5">{region.description}</p>
-                  <p className="text-sm text-slate-300 mt-2 leading-relaxed">{region.findings}</p>
+                  <h3 className="text-sm font-semibold text-white mb-0.5">{region.name}</h3>
+                  <p className="text-xs text-slate-500 mb-2">{region.description}</p>
+                  <p className="text-xs text-slate-400 leading-relaxed">{region.findings}</p>
+
                   <div className="mt-2">
                     <CitationInline citationIds={region.citations} />
                   </div>
 
-                  {/* Neurotransmitter tags */}
+                  {/* NT tags */}
                   <div className="flex flex-wrap gap-1.5 mt-3">
                     {region.relatedNeurotransmitters.map(nt => (
-                      <span key={nt} className="text-[10px] px-2 py-0.5 rounded-full bg-slate-700/50 text-slate-400 border border-slate-600/50">
+                      <span
+                        key={nt}
+                        className="text-[10px] px-2 py-0.5 rounded-full font-medium"
+                        style={{
+                          background: `rgba(${hexToRgb(region.color)}, 0.12)`,
+                          border: `1px solid rgba(${hexToRgb(region.color)}, 0.25)`,
+                          color: region.color,
+                        }}
+                      >
                         {nt}
                       </span>
                     ))}
                   </div>
 
-                  {/* Cross-links to drugs */}
+                  {/* Cross-links */}
                   {drugs.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-slate-700/30">
+                    <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-white/[0.05]">
                       {drugs.map(drug => (
                         <CrossLinkButton
                           key={drug.id}
@@ -95,15 +115,30 @@ export function BrainPanel({ disorder, highlightedRegion, onHighlightRegion, onC
         })}
       </div>
 
-      <div className="bg-slate-800/30 border border-slate-700/30 rounded-xl p-4">
-        <p className="text-xs text-slate-500 flex items-start gap-2">
-          <MapPin className="w-3.5 h-3.5 shrink-0 mt-0.5" />
-          Region positions are schematic representations. Activation patterns shown reflect population-level
-          associations from neuroimaging meta-analyses, not individual brain scans.
+      {/* Caveat */}
+      <div
+        className="rounded-xl p-3.5 flex items-start gap-2.5"
+        style={{
+          background: 'rgba(255,255,255,0.02)',
+          border: '1px solid rgba(255,255,255,0.05)',
+        }}
+      >
+        <MapPin className="w-3.5 h-3.5 text-slate-600 shrink-0 mt-0.5" />
+        <p className="text-[11px] text-slate-600 leading-relaxed">
+          Positions are schematic. Activation patterns reflect population-level meta-analytic findings,
+          not individual brain scans.
         </p>
       </div>
 
       <CitationBlock citations={disorder.citations} />
     </div>
   );
+}
+
+function hexToRgb(hex: string): string {
+  const clean = hex.replace('#', '');
+  const r = parseInt(clean.slice(0, 2), 16);
+  const g = parseInt(clean.slice(2, 4), 16);
+  const b = parseInt(clean.slice(4, 6), 16);
+  return `${r},${g},${b}`;
 }
